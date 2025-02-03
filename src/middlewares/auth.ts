@@ -3,7 +3,7 @@ import { createMiddleware } from "hono/factory"
 export const auth = createMiddleware(async (c, next) => {
 	const authoration = c.req.header("Authorization")
 
-	if (!authoration || !authoration.startsWith("Beaerer ")) {
+	if (!authoration || !authoration.startsWith("Bearer ")) {
 		return c.json({ error: "Unauthorized" }, 401)
 	}
 

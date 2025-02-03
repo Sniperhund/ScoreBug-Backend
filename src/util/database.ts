@@ -1,3 +1,4 @@
+import { z } from "@hono/zod-openapi"
 import mongoose from "mongoose"
 
 export const db = (uri: string | undefined) => {
@@ -29,3 +30,18 @@ const gameSchema = new mongoose.Schema({
 })
 
 export const Game = mongoose.model("Game", gameSchema)
+
+export const GameZodObject = z.object({
+	_id: z.string(),
+	team1: z.object({
+		countryCode: z.string(),
+		score: z.number(),
+	}),
+	team2: z.object({
+		countryCode: z.string(),
+		score: z.number(),
+	}),
+	startDate: z.string().datetime(),
+	matchLength: z.number().default(60),
+	pauseTimer: z.boolean(),
+})

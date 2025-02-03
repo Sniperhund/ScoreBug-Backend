@@ -10,7 +10,7 @@ import chalk from "chalk"
 
 db(process.env.MONGODB_URI)
 
-app.use("/*", cors())
+app.use("*", cors())
 app.use(prettyJSON())
 
 app.get("/docs", swaggerUI({ url: "/doc" }))

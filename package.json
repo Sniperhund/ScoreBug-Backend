@@ -2,7 +2,8 @@
 	"name": "ScoreBug-Backend",
 	"type": "module",
 	"scripts": {
-		"dev": "tsx watch src/app.ts"
+		"dev": "tsx watch src/app.ts",
+		"start": "tsx src/app.ts"
 	},
 	"dependencies": {
 		"@hono/node-server": "^1.13.7",

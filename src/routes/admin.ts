@@ -3,6 +3,7 @@ import { auth } from "../middlewares/auth.js"
 import { app } from "../util/hono.js"
 import { Game, GameZodObject } from "../util/database.js"
 import mongoose from "mongoose"
+import { count } from "console"
 
 app.use("/admin/*", auth)
 
@@ -23,10 +24,12 @@ app.openapi(
 						schema: z.object({
 							team1: z.object({
 								countryCode: z.string(),
+								shortCountryCode: z.string(),
 								score: z.number(),
 							}),
 							team2: z.object({
 								countryCode: z.string(),
+								shortCountryCode: z.string(),
 								score: z.number(),
 							}),
 							startDate: z.string().datetime(),
@@ -90,12 +93,14 @@ app.openapi(
 							team1: z
 								.object({
 									countryCode: z.string(),
+									shortCountryCode: z.string(),
 									score: z.number(),
 								})
 								.optional(),
 							team2: z
 								.object({
 									countryCode: z.string(),
+									shortCountryCode: z.string(),
 									score: z.number(),
 								})
 								.optional(),

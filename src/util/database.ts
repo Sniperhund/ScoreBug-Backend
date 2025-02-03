@@ -18,10 +18,12 @@ export const db = (uri: string | undefined) => {
 const gameSchema = new mongoose.Schema({
 	team1: {
 		countryCode: String,
+		shortCountryCode: String,
 		score: Number,
 	},
 	team2: {
 		countryCode: String,
+		shortCountryCode: String,
 		score: Number,
 	},
 	startDate: Date,
@@ -35,10 +37,12 @@ export const GameZodObject = z.object({
 	_id: z.string(),
 	team1: z.object({
 		countryCode: z.string(),
+		shortCountryCode: z.string(),
 		score: z.number(),
 	}),
 	team2: z.object({
 		countryCode: z.string(),
+		shortCountryCode: z.string(),
 		score: z.number(),
 	}),
 	startDate: z.string().datetime(),

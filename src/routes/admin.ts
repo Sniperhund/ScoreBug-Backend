@@ -70,9 +70,40 @@ app.openapi(
 
 		await game.save() // Saves the game :)
 
+		incrementTimer()
+
 		return c.json(game, 200)
 	}
 )
+
+let intervalId: NodeJS.Timeout | null = null
+
+const incrementTimer = async () => {
+	if (intervalId) clearInterval(intervalId)
+
+	intervalId = setInterval(async () => {
+		const games = await Game.find({})
+
+		if (games.length == 0) {
+			return
+		}
+
+		const game = await Game.findById(games[0]._id)
+
+		if (!game) {
+			return
+		}
+
+		if (game.pauseTimer) {
+			return
+		}
+
+		if (game.matchTime) game.matchTime += 1
+		else game.matchTime = 1
+
+		await game.save()
+	}, 1000)
+}
 
 app.openapi(
 	createRoute({
@@ -142,7 +173,10 @@ app.openapi(
 		if (team1 != undefined) game.team1 = team1
 		if (team2 != undefined) game.team2 = team2
 		if (matchTime != undefined) game.matchTime = matchTime
-		if (pauseTimer != undefined) game.pauseTimer = pauseTimer
+		if (pauseTimer != undefined) {
+			game.pauseTimer = pauseTimer
+			incrementTimer()
+		}
 
 		await game.save()
 

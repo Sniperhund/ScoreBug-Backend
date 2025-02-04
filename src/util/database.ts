@@ -26,8 +26,7 @@ const gameSchema = new mongoose.Schema({
 		shortCountryCode: String,
 		score: Number,
 	},
-	startDate: Date,
-	matchLength: Number, // Increment matchLength at half (15 minutes)
+	matchTime: Number,
 	pauseTimer: Boolean,
 })
 
@@ -45,7 +44,6 @@ export const GameZodObject = z.object({
 		shortCountryCode: z.string(),
 		score: z.number(),
 	}),
-	startDate: z.string().datetime(),
-	matchLength: z.number().default(60),
+	matchTime: z.number().default(60),
 	pauseTimer: z.boolean(),
 })

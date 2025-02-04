@@ -32,8 +32,7 @@ app.openapi(
 								shortCountryCode: z.string(),
 								score: z.number(),
 							}),
-							startDate: z.string().datetime(),
-							matchLength: z.number().default(60),
+							matchTime: z.number().default(0),
 							pauseTimer: z.boolean(),
 						}),
 					},
@@ -104,8 +103,7 @@ app.openapi(
 									score: z.number(),
 								})
 								.optional(),
-							startDate: z.string().datetime().optional(),
-							matchLength: z.number().default(60).optional(),
+							matchTime: z.number().default(0).optional(),
 							pauseTimer: z.boolean().optional(),
 						}),
 					},
@@ -139,13 +137,11 @@ app.openapi(
 			return c.json({ error: "No game found" }, 400)
 		}
 
-		const { team1, team2, startDate, matchLength, pauseTimer } =
-			await c.req.json()
+		const { team1, team2, matchTime, pauseTimer } = await c.req.json()
 
 		if (team1 != undefined) game.team1 = team1
 		if (team2 != undefined) game.team2 = team2
-		if (startDate != undefined) game.startDate = startDate
-		if (matchLength != undefined) game.matchLength = matchLength
+		if (matchTime != undefined) game.matchTime = matchTime
 		if (pauseTimer != undefined) game.pauseTimer = pauseTimer
 
 		await game.save()
